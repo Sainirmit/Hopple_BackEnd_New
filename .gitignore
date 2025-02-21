@@ -10,3 +10,5 @@ venv/
 
 # Mac OS files
 .DS_Store
+
+hopple.log
