@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hopple BackEnd
 
 This repository contains the backend for **Hopple**, an AI Agent marketplace product.
@@ -22,3 +23,6 @@ It is built using FastAPI and integrates with local AI models (via Ollama and Mi
 1. Clone the repository:
    ```bash
    git clone https://github.com/sainirmit/Hopple_BackEnd.git
+=======
+# Hopple_BackEnd
+>>>>>>> 249e7006a4688414865df71fceb709f3edbf5c26
