@@ -18,4 +18,4 @@ jobs:
           pip install fastapi uvicorn pytest
       - name: Run tests
         run: |
-          pytest
+          PYTHONPATH=. pytest
