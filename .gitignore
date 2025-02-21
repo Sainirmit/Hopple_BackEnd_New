@@ -1,0 +1,12 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environment folder (change the folder name if yours is different)
+venv/
+
+# Environment variables file
+.env
+
+# Mac OS files
+.DS_Store

@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import subprocess
+from hopple_core import HoppleCore
 
 app = FastAPI()
 
-# Enable CORS for development
+# Enable CORS for all origins (good for development)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can restrict this later
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -28,3 +29,13 @@ def generate_text(prompt: str):
         return {"response": result.stdout.strip()}
     except Exception as e:
         return {"error": str(e)}
+
+@app.get("/process/")
+def process_task(task: str):
+    """
+    Endpoint to process a high-level task.
+    Example: /process/?task=Plan%20a%20product%20launch
+    """
+    hopple = HoppleCore()
+    plan = hopple.process_task(task)
+    return {"plan": plan}
