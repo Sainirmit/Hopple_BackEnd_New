@@ -1,11 +1,11 @@
+# server.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import subprocess
 from hopple_core import HoppleCore
+import asyncio
 
 app = FastAPI()
 
-# Enable CORS for all origins (good for development)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -19,23 +19,26 @@ def read_root():
     return {"message": "Hopple AI Agent API is running!"}
 
 @app.get("/generate/")
-def generate_text(prompt: str):
+async def generate_text(prompt: str):
     try:
-        # Run the Ollama command with the prompt to generate a response
-        result = subprocess.run(
-            ["ollama", "run", "mistral", prompt],
-            capture_output=True, text=True
+        # Asynchronously run the Ollama command using asyncio.create_subprocess_exec
+        proc = await asyncio.create_subprocess_exec(
+            "ollama", "run", "mistral", prompt,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
         )
-        return {"response": result.stdout.strip()}
+        stdout, stderr = await proc.communicate()
+        if proc.returncode != 0:
+            return {"error": stderr.decode().strip()}
+        return {"response": stdout.decode().strip()}
     except Exception as e:
         return {"error": str(e)}
 
 @app.get("/process/")
-def process_task(task: str):
+async def process_task(task: str):
     """
-    Endpoint to process a high-level task.
-    Example: /process/?task=Plan%20a%20product%20launch
+    Asynchronously process a high-level task.
     """
     hopple = HoppleCore()
-    plan = hopple.process_task(task)
+    plan = await hopple.process_task(task)
     return {"plan": plan}

@@ -1,67 +1,96 @@
-# Hopple_BackEnd_New
+# Hopple Backend
 
-This repository contains the backend for **Hopple**, an AI Agent marketplace product. It is built using FastAPI and integrates with local AI models (via Ollama and Mistral).
+## Overview
 
-## Features
+Hopple is an AI-driven project management system designed to dynamically create and manage sub-agents for various project tasks. The system ensures efficiency by putting sub-agents into a sleep mode after completing their tasks, reducing resource consumption while maintaining memory. The project manager (PM) has final approval over tasks before the sub-agents are terminated.
 
-- FastAPI server with CORS enabled
-- Root endpoint `/` to verify the server is running
-- Endpoint `/generate/` to generate AI responses based on a prompt
-- Endpoint `/process/` to process high-level tasks by delegating to sub-agents (e.g., a Project Management sub-agent)
-- Robust logging using a custom logger (located in `utils/logger.py`)
-- Modular architecture with a meta-agent (`HoppleCore`) that can dynamically spawn sub-agents
+## Recent Updates
 
-## Getting Started
+### 1. **Modularization of the PM Agent**
 
-### Prerequisites
+- Refactored `pm_agent.py` to separate core functionalities into dedicated modules:
+  - **Task Creation** (`task_creator.py`)
+  - **Priority Assignment** (`priority_assigner.py`)
+  - **Worker Assignment** (`worker_assigner.py`)
+  - **Meeting Summarization** (`meeting_summarizer.py`)
+- This improves maintainability, readability, and testing.
 
-- Python 3.9+
-- FastAPI and Uvicorn
-- Ollama installed (for running the AI models locally)
-- Git for version control
+### 2. **Sub-Agent Lifecycle Management**
 
-### Setup
+- **Sleep Mode:** Sub-agents pause resource usage after completing their tasks but retain memory.
+- **Final Approval Prompt:** The project manager is prompted before terminating sub-agents.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/sainirmit/Hopple_BackEnd_New.git
-   ```
-   **Navigate to the project directory:**
-   ```bash
-   cd Hopple_BackEnd_New
-   ```
-   **Create a virtual environment and activate it:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-   **Install dependencies:**
-   ```bash
-   pip install fastapi uvicorn pytest
-   ```
-   **Run the FastAPI server:**
-   ```bash
-   uvicorn server:app --reload
-   ```
+### 3. **Improved Logging**
+
+- Added debug and info logs to track agent actions and ensure better debugging capabilities.
+
+## Installation & Setup
+
+### 1. **Clone the Repository**
+
+```bash
+git clone https://github.com/your-repo/Hopple_BackEnd_New.git
+cd Hopple_BackEnd_New
+```
+
+# Set Up Virtual Environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+# Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+# Run Tests
+
+```bash
+PYTHONPATH=. pytest
+```
+
+# Run the Server
+
+```bash
+uvicorn server:app --reload
+```
 
 ## The server will be available at http://127.0.0.1:8000.
 
-## Testing
+# Directory Structure
 
-- **Local Testing:**  
-  Integration tests are located in the `tests/` folder. To run tests, execute:
-  ```bash
-  PYTHONPATH=. pytest
-  ```
+```bash
+Hopple_BackEnd_New/
+├── agents/
+│   ├── __init__.py
+│   ├── pm_agent.py
+│   └── pm/
+│       ├── __init__.py
+│       ├── task_creator.py
+│       ├── priority_assigner.py
+│       ├── worker_assigner.py
+│       ├── meeting_summarizer.py
+├── tests/
+│   ├── test_pm_agent.py
+│   ├── test_server.py
+├── utils/
+│   ├── __init__.py
+│   ├── logger.py
+│   ├── async_utils.py
+├── requirements.txt
+├── README.md
+```
 
--Continuous Integration:
--A GitHub Actions workflow is set up in .github/workflows/ci.yml to automatically run tests on every push or pull request.
+# Next Steps
 
-##**Commit Your Changes**
+- Implement more AI-driven prioritization logic.
+- Enhance worker assignment using external HR database integration.
+- Optimize sleep-mode efficiency for sub-agents.
+- Expand the sub-agent ecosystem with additional agents (e.g., Risk Management, Budget Monitoring).
 
-Once your tests pass locally and your documentation is updated, commit your changes:
+# Feel free to open an issue or submit a pull request if you have suggestions or improvements!
 
-1. **Stage the New Files and Changes:**
-   ```bash
-   git add tests/test_server.py README.md hopple_core.py agents/pm_agent.py utils/logger.py
-   ```
+### Last updated: [23 February 2025]

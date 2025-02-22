@@ -5,7 +5,7 @@ class HoppleCore:
     def __init__(self):
         log_info("HoppleCore initialized.")
 
-    def process_task(self, task: str):
+    async def process_task(self, task: str):
         log_info(f"Processing task: {task}")
         try:
             # Placeholder: Future dynamic task decomposition can be integrated here
@@ -16,7 +16,8 @@ class HoppleCore:
             if "project" in task.lower() or "plan" in task.lower():
                 from agents.pm_agent import ProjectManagementAgent
                 pm_agent = ProjectManagementAgent()
-                result = pm_agent.generate_plan(task)
+                # Await the async generate_plan method
+                result = await pm_agent.generate_plan(task)
                 log_info("Task processed by PM sub-agent successfully.")
                 return result
             else:
@@ -29,9 +30,11 @@ class HoppleCore:
     def decompose_task(self, task: str):
         """
         Placeholder for dynamic task decomposition.
-        In the future, this will use an LLM or a more sophisticated algorithm to break down the task.
-        For now, it simply returns the original task in a list.
+        In the future, this will use an AI model (e.g., Mistral via Ollama) to break down the task.
+        For now, it returns a list containing the original task and a simulated sub-task.
         """
         log_info(f"Decomposing task: {task}")
-        # TODO: Implement dynamic decomposition logic
-        return [task]
+        # TODO: Replace the following simulated decomposition with a call to Mistral
+        simulated_subtasks = [task, f"{task} - subtask generated dynamically"]
+        log_debug(f"Simulated subtasks: {simulated_subtasks}")
+        return simulated_subtasks
