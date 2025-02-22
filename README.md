@@ -29,30 +29,30 @@ Hopple is an AI-driven project management system designed to dynamically create 
 ### 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/your-repo/Hopple_BackEnd_New.git
+git clone https://github.com/sainirmit/Hopple_BackEnd_New.git
 cd Hopple_BackEnd_New
 ```
 
-# Set Up Virtual Environment
+### 2. Set Up Virtual Environment
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-# Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-# Run Tests
+### 4. Run Tests
 
 ```bash
 PYTHONPATH=. pytest
 ```
 
-# Run the Server
+### 5. Run the Server
 
 ```bash
 uvicorn server:app --reload
