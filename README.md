@@ -46,12 +46,22 @@ This repository contains the backend for **Hopple**, an AI Agent marketplace pro
 
 ## The server will be available at http://127.0.0.1:8000.
 
-###Testing
+## Testing
 
-##Local Testing:
-
-- Integration tests are located in the tests/ folder. To run tests, execute:
+- **Local Testing:**  
+  Integration tests are located in the `tests/` folder. To run tests, execute:
+  ```bash
   PYTHONPATH=. pytest
+  ```
 
 -Continuous Integration:
 -A GitHub Actions workflow is set up in .github/workflows/ci.yml to automatically run tests on every push or pull request.
+
+##**Commit Your Changes**
+
+Once your tests pass locally and your documentation is updated, commit your changes:
+
+1. **Stage the New Files and Changes:**
+   ```bash
+   git add tests/test_server.py README.md hopple_core.py agents/pm_agent.py utils/logger.py
+   ```
